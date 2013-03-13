@@ -12,14 +12,13 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 
+class Preset;
 class Trigger;
-class PresetZone;
 class Attractor;
 class Particle{
 public:
 	Particle();
 	Particle(int ind);
-	Particle(vector<PresetZone*>* pZ, vector<Trigger*>* tg, int ind);
     Particle(vector<Attractor*>* aT, vector<Trigger*>* tg, int ind);
 	~Particle();
 	
@@ -29,7 +28,8 @@ public:
 	virtual void update();
 	virtual void draw();
 	
-	void setupPresets(double p0, double p1, double s0, double s1, int dt, int bf);
+    Preset* preset;
+	void setupPresets(Preset* ps);
 	
 	double x, y, z;
 	double vx, vy, vz;
@@ -48,29 +48,19 @@ public:
     
     double mass;
 	
-	int bufferSize;
-	int domainTime;
-	ofVec2f pitchLimits;
-	ofVec3f speedLimits;
-	string sample;
-			 
 	int status;
 	
 	int age;
     int life;
 	
-	vector<PresetZone*>* presetZones;
 	vector<Trigger*>* triggers;
     vector<Attractor*>* attractors;
 	
-	void getClosestPresetZone();
-	int closestPresetZone;
-	void getPresets();
+	
+	Preset* getPreset();
 	
 	bool collision();
 	
-	ofxOscMessage msg;
-	void getMsg(ofxOscMessage* msg);
 	
 };
 

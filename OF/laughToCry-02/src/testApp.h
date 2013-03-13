@@ -10,9 +10,11 @@
 #include "ofxAssimpModelLoader.h"
 #include "ofxThreadedImageLoader.h"
 #include "Particle.h"
-#include "PresetZone.h"
 #include "Trigger.h"
 #include "Attractor.h"
+#include "Grid.h"
+
+#define borns 5
 
 class testApp : public ofBaseApp{
 	
@@ -33,13 +35,17 @@ public:
 	void gotMessage(ofMessage msg);		
 	
 	vector<Particle*> particles;
-	vector<PresetZone*>* presets;
 	vector<Trigger*>* triggers;
     vector<Attractor*>* attractors;
 	
 	ofxOscSender oscSender;
 	ofxOscMessage* msg;
     
+    Grid grid;
+    
     double zoom;
     
+    
+    double mx, my;
+    double mxScreen, myScreen;
 };

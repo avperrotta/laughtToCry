@@ -7,9 +7,9 @@
 //
 
 #include "Particle.h"
-#include "PresetZone.h"
 #include "Trigger.h"
 #include "Attractor.h"
+#include "Preset.h"
 
 
 Particle::Particle(){
@@ -23,12 +23,6 @@ Particle::Particle(int ind){
 	setup();
 }
 
-Particle::Particle(vector<PresetZone*>* pZ, vector<Trigger*>* tg, int ind){
-	index = ind;
-	presetZones = pZ;
-	triggers = tg;
-	setup();
-}
 
 Particle::Particle(vector<Attractor*>* aT, vector<Trigger*>* tg, int ind){
 	index = ind;
@@ -53,19 +47,18 @@ void Particle::setup(){
 	vx = ofRandom(2.8, 8.);
 	vy = 0.0;
 	
-	setupPresets(0.8, 1., 0.00005, 0.3, ofRandom(10000, 32600), ofRandom(100, 3000));
-	closestPresetZone = 0;
 	
     maxV = 3.;
     maxV0 = 5.;
+    
 }
 
-void Particle::setupPresets(double p0, double p1, double s0, double s1, int dt, int bf){
-	pitchLimits = ofPoint(p0, p1);
-	speedLimits = ofPoint(s0, s1);
-	domainTime = dt;
-	bufferSize = dt;
-    
+void Particle::setupPresets(Preset* ps){
+	preset = ps;
+}
+
+Preset* Particle::getPreset(){
+    return preset;
 }
 
 void Particle::update(){
@@ -127,31 +120,20 @@ void Particle::draw(){
 	
 }
 
-void Particle::getPresets(){
-	pitchLimits = (*presetZones)[closestPresetZone]->pitchLimits;
-	speedLimits = (*presetZones)[closestPresetZone]->speedLimits;
-	domainTime = (*presetZones)[closestPresetZone]->domainTime;
-	bufferSize = (*presetZones)[closestPresetZone]->bufferSize;
-}
 
-void Particle::getClosestPresetZone(){
-	double minDist = 10000000000000000000.0;
-	for(int i=0; i<presetZones->size(); i++){
-		if(ofDistSquared(x, y, (*presetZones)[i]->x, (*presetZones)[i]->y) < minDist){
-			minDist = ofDistSquared(x, y, (*presetZones)[i]->x, (*presetZones)[i]->y);
-			closestPresetZone = i;
-			getPresets();
-		}
-	}
-}
 
 bool Particle::collision(){
+    bool hit;
 	for(int i=0; i<triggers->size(); i++){
 		if(y > (*triggers)[i]->y && y < ((*triggers)[i]->y + (*triggers)[i]->height)){
             if(previousX < (*triggers)[i]->x && x >= (*triggers)[i]->x){
-                return true;
+                hit = true;
             }
             if(previousX > (*triggers)[i]->x && x <= (*triggers)[i]->x){
+                hit = true;
+            }
+            if(hit){
+                setupPresets((*triggers)[i]->getPreset());
                 return true;
             }
         }
@@ -159,13 +141,4 @@ bool Particle::collision(){
 	return false;
 }
 
-void Particle::getMsg(ofxOscMessage* msg){
-	msg->clear();
-	msg->setAddress("/particle-" + ofToString(index) + "/live");
-	msg->addIntArg(domainTime);
-	msg->addFloatArg(speedLimits.x);
-	msg->addFloatArg(speedLimits.y);
-	msg->addFloatArg(pitchLimits.x);
-	msg->addFloatArg(pitchLimits.y);
-	msg->addIntArg(bufferSize);
-}
+
