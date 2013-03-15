@@ -21,9 +21,12 @@ public:
     Attractor();
     ~Attractor();
     Attractor(vector<Trigger*>* tgV, std::string type);
+    Attractor(vector<Trigger*>* tgV, Preset* ps);
+    Attractor(vector<Trigger*>* tgV, Preset* ps, double x0, double y0);
 
     void setup();
     void setup(double m);
+    void setup(double x0, double y0);
     void update();
     void draw();
     void clear();

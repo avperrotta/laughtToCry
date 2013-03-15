@@ -10,6 +10,7 @@
 #define allAddonsExample_Grid_h
 
 #include "ofMain.h"
+#include "Preset.h"
 
 class Grid{
 public:
@@ -25,6 +26,10 @@ public:
     float stepV;
     float startX;
     float startY;
+    float endX;
+    float endY;
+    
+    Preset* getPreset(int x, int y);
 };
 
 #endif

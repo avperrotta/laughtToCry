@@ -48,4 +48,6 @@ public:
     
     double mx, my;
     double mxScreen, myScreen;
+    
+    vector<int> collisionHistory;
 };

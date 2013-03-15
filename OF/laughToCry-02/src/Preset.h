@@ -19,8 +19,9 @@ public:
     ~Preset();
     
     Preset(std::string type);
+    Preset(double p0, double p1, double s0, double s1, int dt);
     
-    void setupPresets(double p0, double p1, double s0, double s1, int dt, int bf);
+    void setupPreset(double p0, double p1, double s0, double s1, int dt, int bf);
     
     int bufferSize;
 	int domainTime;

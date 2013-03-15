@@ -9,6 +9,10 @@
 #include <iostream>
 #include "Grid.h"
 
+#define pitchWidth 40.
+
+
+
 Grid::Grid(){
     
 }
@@ -24,10 +28,13 @@ void Grid::setup(){
     
     //values for zoom = -5000;
     startX = -3850.;
-    stepH = (4850. - (startX))/6.;
+    endX = 4850;
+    stepH = (endX - startX)/6.;
+    
     
     startY = -2890.;
-    stepV = (3650. - (startY))/3.;
+    endY = 3650;
+    stepV = (endY - startY)/3.;
     
 }
 
@@ -71,8 +78,157 @@ void Grid::draw(){
     ofDrawBitmapString("l", startX + 20, startY + 500 + 2*stepV);
     ofDrawBitmapString("o", startX + 20, startY + 600 + 2*stepV);
     ofDrawBitmapString("w", startX + 20, startY + 700 + 2*stepV);
-    
+        
+}
 
+Preset* Grid::getPreset(int x, int y){
+    
+    //==============================================
+    if(x >= startX && x <= startX + stepH){
+        if(y >= startY && y <= startY + stepV){
+            //cout<<endl<<"entrei 1!";
+            return new Preset(2., 100., 0.6, 2.1, ofRandom(500, 1000));
+        }
+    }
+    
+    if(x >= startX && x <= startX + stepH){
+        if(y > startY + stepV && y <= startY + 2*stepV){
+            //cout<<endl<<"entrei 2!";
+            return new Preset(0.9, 1.1, 0.6, 2.1, ofRandom(500, 1000));
+        }
+    }
+    
+    if(x >= startX && x <= startX + stepH){
+        if(y > startY + 2*stepV && y <= startY + 3*stepV){
+            //cout<<endl<<"entrei 3!";
+            return new Preset(0.3, 0.9, 0.6, 2.1, ofRandom(500, 1000));
+        }
+    }
+    //==============================================
+    
+    //==============================================
+    if(x > startX + stepH && x <= startX + 2*stepH){
+        if(y >= startY && y <= startY + stepV){
+            //cout<<endl<<"entrei 4!";
+            return new Preset(2., 100., 0.5, 1.5, ofRandom(800, 2500));
+        }
+    }
+    
+    if(x > startX + stepH && x <= startX + 2*stepH){
+        if(y > startY + stepV && y <= startY + 2*stepV){
+            //cout<<endl<<"entrei 5!";
+            return new Preset(0.9, 1.1, 0.5, 1.5, ofRandom(800, 2500));
+        }
+    }
+    
+    if(x > startX + stepH && x <= startX + 2*stepH){
+        if(y > startY + 2*stepV && y <= startY + 3*stepV){
+            //cout<<endl<<"entrei 6!";
+            return new Preset(0.3, 0.9, 0.5, 1.5, ofRandom(800, 2500));
+        }
+    }
+    //==============================================
+    
+    //==============================================
+    if(x > startX + 2*stepH && x <= startX + 3*stepH){
+        if(y >= startY && y <= startY + stepV){
+            //cout<<endl<<"entrei 7!";
+            return new Preset(2., 100., 0.1, 1.5, ofRandom(1600, 3500));
+        }
+    }
+    
+    if(x > startX + 2*stepH && x <= startX + 3*stepH){
+        if(y > startY + stepV && y <= startY + 2*stepV){
+            //cout<<endl<<"entrei 8!";
+            return new Preset(0.9, 1.1, 0.1, 1.5, ofRandom(1600, 3500));
+        }
+    }
+    
+    if(x > startX + 2*stepH && x <= startX + 3*stepH){
+        if(y > startY + 2*stepV && y <= startY + 3*stepV){
+            //cout<<endl<<"entrei 9!";
+            return new Preset(0.3, 0.9, 0.1, 1.5, ofRandom(1600, 3500));
+        }
+    }
+    //==============================================
+    
+    //==============================================
+    if(x > startX + 3*stepH && x <= startX + 4*stepH){
+        if(y >= startY && y <= startY + stepV){
+            //cout<<endl<<"entrei 10!";
+            return new Preset(2., 100., 0.005, 0.1, ofRandom(3000, 6500));
+        }
+    }
+    
+    if(x > startX + 3*stepH && x <= startX + 4*stepH){
+        if(y > startY + stepV && y <= startY + 2*stepV){
+            //cout<<endl<<"entrei 11!";
+            return new Preset(0.9, 1.1, 0.005, 0.1, ofRandom(3000, 6500));
+        }
+    }
+    
+    if(x > startX + 3*stepH && x <= startX + 4*stepH){
+        if(y > startY + 2*stepV && y <= startY + 3*stepV){
+            //cout<<endl<<"entrei 12!";
+            return new Preset(0.3, 0.9, 0.005, 0.1, ofRandom(3000, 6500));
+        }
+    }
+    //==============================================
+    
+    //==============================================
+    if(x > startX + 4*stepH && x <= startX + 5*stepH){
+        if(y >= startY && y <= startY + stepV){
+            //cout<<endl<<"entrei 13!";
+            return new Preset(2., 100., 0.00005, 0.001, ofRandom(5000, 11500));
+        }
+    }
+    
+    if(x > startX + 4*stepH && x <= startX + 5*stepH){
+        if(y > startY + stepV && y <= startY + 2*stepV){
+            //cout<<endl<<"entrei 14!";
+            return new Preset(0.9, 1.1, 0.00005, 0.001, ofRandom(5000, 11500));
+        }
+    }
+    
+    if(x > startX + 4*stepH && x <= startX + 5*stepH){
+        if(y > startY + 2*stepV && y <= startY + 3*stepV){
+            //cout<<endl<<"entrei 15!";
+            return new Preset(0.3, 0.9, 0.00005, 0.001, ofRandom(5000, 11500));
+        }
+    }
+    //==============================================
+    
+    //==============================================
+    if(x > startX + 5*stepH && x <= startX + 6*stepH){
+        if(y >= startY && y <= startY + stepV){
+            //cout<<endl<<"entrei 16!";
+            return new Preset(2., 100., 0.000001, 0.00005, ofRandom(8000, 16500));
+        }
+    }
+    
+    if(x > startX + 5*stepH && x <= startX + 6*stepH){
+        if(y > startY + stepV && y <= startY + 2*stepV){
+            //cout<<endl<<"entrei 17!";
+            return new Preset(0.9, 1.1, 0.000001, 0.00005, ofRandom(8000, 16500));
+        }
+    }
+    
+    if(x > startX + 5*stepH && x <= startX + 6*stepH){
+        if(y > startY + 2*stepV && y <= startY + 3*stepV){
+            //cout<<endl<<"entrei 18!";
+            return new Preset(0.3, 0.9, 0.000001, 0.00005, ofRandom(8000, 16500));
+        }
+    }
+    //==============================================
     
     
 }
+
+
+
+
+
+
+
+
+

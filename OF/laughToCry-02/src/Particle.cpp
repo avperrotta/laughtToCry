@@ -53,7 +53,7 @@ void Particle::setup(){
     
 }
 
-void Particle::setupPresets(Preset* ps){
+void Particle::setupPreset(Preset* ps){
 	preset = ps;
 }
 
@@ -133,7 +133,7 @@ bool Particle::collision(){
                 hit = true;
             }
             if(hit){
-                setupPresets((*triggers)[i]->getPreset());
+                setupPreset((*triggers)[i]->getPreset());
                 return true;
             }
         }

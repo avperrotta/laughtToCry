@@ -28,6 +28,22 @@ Attractor::Attractor(vector<Trigger*>* tgV, std::string type){
     
 }
 
+Attractor::Attractor(vector<Trigger*>* tgV, Preset* ps){
+    triggers = tgV;
+    tg = new Trigger();
+    preset = ps;
+    
+    setup();
+}
+
+Attractor::Attractor(vector<Trigger*>* tgV, Preset* ps, double x0, double y0){
+    triggers = tgV;
+    tg = new Trigger();
+    preset = ps;
+    
+    setup(x0, y0);
+}
+
 Attractor::~Attractor(){
     
 }
@@ -40,18 +56,18 @@ void Attractor::setup(){
     
     radius = 10*mass;
     
-    //x = ofRandom(-5700, 1700);
-    //y = ofRandom(-1700, 1700);
+    x = ofRandom(-3850, 4850);
+    y = ofRandom(-2650, 3650);
     
-    x = 4850;
-    y = 3650;
+    //x = 4850;
+    //y = 3650;
     
     age = 0;
     life = ofRandom(150, 600);
     
     
     
-    tg->setupPresets(preset);
+    tg->setupPreset(preset);
     tg->x = x;
     tg->y = y - radius;
     tg->width = 10;
@@ -74,6 +90,32 @@ void Attractor::setup(double m){
     
     age = 0;
     life = ofRandom(150, 600);
+}
+
+
+void Attractor::setup(double x0, double y0){
+    m0 = ofRandom(10., 50.);
+    mass = m0;
+    
+    radius = 10*mass;
+    
+    x = x0;
+    y = y0;
+    
+    age = 0;
+    life = ofRandom(150, 600);
+    
+    
+    
+    tg->setupPreset(preset);
+    tg->x = x;
+    tg->y = y - radius;
+    tg->width = 10;
+    tg->height = radius;
+    
+    triggers->push_back(tg);
+    
+    status = 1;
 }
 
 void Attractor::setupTriggersVector(vector<Trigger*>* tgV){
@@ -109,7 +151,10 @@ Trigger* Attractor::getTrigger(){
 
 void Attractor::draw(){
     ofFill();
-    ofSetColor(preset->color.r, preset->color.g, preset->color.b, ofMap(age, 0, life, 255, 0));
+    ofSetColor(preset->color.r, preset->color.g, preset->color.b, ofMap(age, 0, life, 240, 0));
+    ofCircle(x, y, radius);
+    ofNoFill();
+    ofSetColor(200, 200, 200, ofMap(age, 0, life, 240, 0));
     ofCircle(x, y, radius);
     ofFill();
     ofCircle(x, y, 2);

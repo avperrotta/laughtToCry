@@ -29,7 +29,7 @@ public:
 	virtual void draw();
 	
     Preset* preset;
-	void setupPresets(Preset* ps);
+	void setupPreset(Preset* ps);
 	
 	double x, y, z;
 	double vx, vy, vz;
