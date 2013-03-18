@@ -64,17 +64,17 @@ void testApp::update(){
     }
     
     
-    /*
-     if(ofGetFrameNum()%432 == 0){
-     for(int i=0; i<3; i++){
-     attractors->push_back(new Attractor(triggers, "lsc-narrow-natural"));
-     attractors->push_back(new Attractor(triggers, "lsc-narrow-natural-slow"));
-     attractors->push_back(new Attractor(triggers, "lsc-wide-veryHigh-verySlow"));
-     attractors->push_back(new Attractor(triggers, "lsc-narrow-veryLow-verySlow"));
-     attractors->push_back(new Attractor(triggers, "granular"));
-     }
-     }
-     */
+    
+    if(ofGetFrameNum()%432 == 0){
+        for(int i=0; i<3; i++){
+            attractors->push_back(new Attractor(triggers, "lsc-narrow-natural"));
+            attractors->push_back(new Attractor(triggers, "lsc-narrow-natural-slow"));
+            attractors->push_back(new Attractor(triggers, "lsc-wide-veryHigh-verySlow"));
+            attractors->push_back(new Attractor(triggers, "lsc-narrow-veryLow-verySlow"));
+            attractors->push_back(new Attractor(triggers, "granular"));
+        }
+    }
+     
     
     
     
